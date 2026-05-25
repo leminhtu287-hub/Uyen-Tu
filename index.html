@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story: Our Memories 💛 5 Years Together</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="A beautiful interactive timeline of 5 years together. Happy Anniversary, Uyen!">
+  <meta property="og:title" content="Our Story: Our Memories 💛">
+  <meta property="og:description" content="Celebrating 5 years of beautiful memories, adventures, and love (2021 - 2026).">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts for Cartoon & Elegant handwritten styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@400;600;700&family=Pacifico&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheet (Added cache-buster ?v=1.5 to bypass aggressive browser local file caching) -->
+  <link rel="stylesheet" href="index.css?v=1.5">
+</head>
+<body>
+
+  <!-- 3D Envelope / Storybook Opening Screen -->
+  <div class="intro-screen" id="introScreen">
+    <div class="intro-3d-wrapper">
+      <div class="intro-card" id="introCard" onclick="openStory()">
+        <div class="intro-card-inner" id="introCardInner">
+          <!-- Envelope Front Cover -->
+          <div class="intro-card-front">
+            <div class="envelope-stamp">🦎</div>
+            <span class="envelope-heart">💌</span>
+            <h2 class="intro-title-text">For My Sweetheart Uyen 💛</h2>
+            <p class="intro-prompt">A 5-Year Love Journey (2021 - 2026)</p>
+            <div class="intro-click-badge">Click to Open Story! 🔓</div>
+            <div class="intro-tom-peek">
+              <img src="assets/images/tom_lizard_sticker.png" alt="Tom Peek">
+            </div>
+          </div>
+          <!-- Envelope Back (Flipped during opening animation) -->
+          <div class="intro-card-back">
+            <h2 class="unfolding-text">Unfolding our memories... ✨</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Particles Canvas Background -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Cute Sticker Cursor -->
+  <div class="custom-cursor" id="customCursor">🦎</div>
+
+  <!-- Tom the Lizard Interactive Guide Widget (Leads the Journey) -->
+  <div class="tom-guide-widget" id="tomGuide" onclick="speakRandomNote()">
+    <div class="tom-guide-bubble-wrapper">
+      <div class="tom-guide-bubble" id="tomGuideBubble">
+        Hi Uyen! 🦎 Waving hi! Let's scroll down to travel back in time through our 5 years! 💛
+      </div>
+    </div>
+    <div class="tom-guide-character">
+      <img src="assets/images/tom_lizard_sticker.png" id="tomGuideImg" alt="Tom Guide Mascot">
+    </div>
+  </div>
+
+  <!-- Cute Mascot Stickers: Maruko-chan and Shin-chan! -->
+  <div class="mascot-sticker maruko-sticker-widget 3d-tilt" onclick="updateTomSpeechBubble('Maruko-chan says: Tu is so romantic, Uyen! You two are the most perfect couple! 💛🌸')">
+    <img src="assets/images/maruko_sticker.png" alt="Maruko Sticker">
+  </div>
+
+  <div class="mascot-sticker shinchan-sticker-widget 3d-tilt" onclick="updateTomSpeechBubble('Shin-chan giggles: Tu and Uyen are holding hands! So embarrassing! *wiggle wiggle* 🍑🕺')">
+    <img src="assets/images/shinchan_sticker.png" alt="Shin-chan Sticker">
+  </div>
+
+
+  <!-- Music Cassette Player Sidebar (Desktop Floating, Mobile Top) -->
+  <div class="music-player-container" id="musicPlayer">
+    <div class="cassette-deck">
+      <div class="cassette-label">
+        <span class="cassette-title">CILU (Cuz I Luv U) 🎶</span>
+        <span class="cassette-artist">JGKiD x MPaKK</span>
+      </div>
+      <div class="cassette-window">
+        <div class="reel reel-left" id="reelLeft"></div>
+        <div class="reel reel-right" id="reelRight"></div>
+      </div>
+      <div class="controls-row">
+        <button class="player-btn" id="playBtn" onclick="togglePlay()">
+          <span id="playIcon">▶</span>
+        </button>
+        <div class="song-progress">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Grooving Lizard Sticker (Using new custom dancing pose!) -->
+    <img src="assets/images/tom_lizard_dance.png" class="lizard-groover" id="lizardGroover" alt="Tom Grooving">
+  </div>
+
+  <!-- Hidden YouTube Video for audio streaming -->
+  <div id="ytPlayerContainer">
+    <div id="ytPlayer"></div>
+  </div>
+
+  <!-- Header / Hero Splash Section -->
+  <header class="hero-section">
+    <div class="container hero-container">
+      
+      <!-- Left Column: Title, Subtitle, Shortcuts & Timer -->
+      <div class="hero-left">
+        <!-- Hanging Cartoon Title -->
+        <div class="hero-title-wrapper">
+          <!-- Animated Cartoon Sticker Badges to fill space and look highly custom -->
+          <div class="hero-badge est-badge">EST. 2021 🌸</div>
+          <div class="hero-badge love-badge">5 Years of Us 💛</div>
+          <!-- Title changed to "Our Memories" per request -->
+          <h1 class="hero-title">Our Memories <span>💛</span></h1>
+          <p class="hero-subtitle">5 Years of Adventures, Laughs, and Infinite Love</p>
+        </div>
+
+        <!-- Relationship Count-up Timer Widget (Upgraded with 3D Tilt interactive physics!) -->
+        <div class="love-timer-card 3d-tilt">
+          <div class="timer-mascot-wrapper">
+            <!-- Using custom typing pose! -->
+            <img src="assets/images/tom_lizard_phone.png" class="timer-tom" alt="Tom lizard typing">
+            <div class="speech-bubble">
+              🦎 "Cuz I luv u!" <span id="lizardEmojiCounter">🦎</span>
+            </div>
+          </div>
+          <h3 class="timer-title">Time Spent Loving Each Other:</h3>
+          <div class="timer-grid">
+            <div class="timer-box">
+              <span class="timer-num" id="daysVal">0000</span>
+              <span class="timer-unit">Days</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-num" id="hoursVal">00</span>
+              <span class="timer-unit">Hours</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-num" id="minsVal">00</span>
+              <span class="timer-unit">Mins</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-num" id="secsVal">00</span>
+              <span class="timer-unit">Secs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year Shortcut Navigation -->
+        <div class="timeline-nav">
+          <span class="nav-label">Jump to Year:</span>
+          <div class="nav-buttons">
+            <a href="#year2021" class="nav-btn year-btn-2021">2021 🌸</a>
+            <a href="#year2022" class="nav-btn year-btn-2022">2022 🌱</a>
+            <a href="#year2023" class="nav-btn year-btn-2023">2023 ✈️</a>
+            <a href="#year2024" class="nav-btn year-btn-2024">2024 🏡</a>
+            <a href="#year2025" class="nav-btn year-btn-2025">2025 ✨</a>
+            <a href="#year2026" class="nav-btn year-btn-2026">2026 💍</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: 3D Polaroid Cover Photo -->
+      <div class="hero-right">
+        <!-- Main 3D Polaroid Frame -->
+        <div class="hero-polaroid-wrapper">
+          <div class="polaroid-card 3d-tilt" id="heroPolaroid">
+            <div class="polaroid-image-wrapper">
+              <div class="polaroid-placeholder" id="heroImagePlaceholder">
+                <span class="heart-icon-huge">💖</span>
+                <p>Tu & Uyen's Sweet Memories<br><span class="highlight-text">(photos/hero picture.jfif)</span></p>
+              </div>
+              <img src="photos/hero picture.jfif" id="heroRealImg" class="polaroid-real-img" alt="Uyen & Me" onload="document.getElementById('heroImagePlaceholder').style.display='none';" onerror="this.style.display='none'; document.getElementById('heroImagePlaceholder').style.display='flex';">
+            </div>
+            <div class="polaroid-caption">
+              <span class="caption-handwritten">Our Beautiful Journey began... March 7, 2021 🗓️</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Timeline Track Section -->
+  <main class="timeline-section">
+    <div class="timeline-trail-line" id="timelineTrail"></div>
+    <div class="container timeline-container" id="timelineContent">
+      
+      <!-- Loaded dynamically via JavaScript based on config.js -->
+      
+    </div>
+  </main>
+
+  <!-- Interactive 3D Postcard / Polaroid Lightbox Modal -->
+  <div class="modal-overlay" id="lightboxModal" onclick="closeLightbox(event)">
+    <button class="modal-close" onclick="closeLightbox(event)">&times;</button>
+    <div class="modal-content">
+      
+      <!-- 3D Card Flip Container -->
+      <div class="flip-card-container" onclick="flipModalCard(event)">
+        <div class="flip-card-inner" id="modalFlipInner">
+          
+          <!-- Card Front: Polaroid Photo -->
+          <div class="flip-card-front">
+            <div class="polaroid-card modal-polaroid">
+              <div class="polaroid-image-wrapper">
+                <img src="" id="modalImgFront" class="polaroid-real-img" alt="Expanded memory photo">
+                <video id="modalVideoFront" class="polaroid-real-img" style="display: none;" controls playsinline></video>
+              </div>
+              <div class="polaroid-caption">
+                <span class="caption-handwritten" id="modalCaptionFront">Caption Front</span>
+                <span class="flip-hint">🔄 Click to read my letter</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Back: Handwritten Postcard Letter -->
+          <div class="flip-card-back">
+            <div class="postcard-back-card">
+              <div class="postcard-header">
+                <div class="postcard-stamp">
+                  <span class="stamp-emoji">🦎</span>
+                  <span class="stamp-text">TOM APPROVED</span>
+                </div>
+                <h4 class="postcard-title">To My Sweetheart Uyen,</h4>
+              </div>
+              <div class="postcard-body">
+                <p class="postcard-text" id="modalTextBack">
+                  This is the back of the postcard where your custom handwritten-style letter will appear!
+                </p>
+              </div>
+              <div class="postcard-footer">
+                <div class="postcard-meta">
+                  <span class="meta-item">📅 <strong id="modalDateBack">Date</strong></span>
+                  <span class="meta-item">📍 <strong id="modalLocBack">Location</strong></span>
+                </div>
+                <div class="flip-hint-back">🔄 Click to see photo</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <!-- Navigation arrows inside modal -->
+      <button class="gallery-nav-btn prev-btn" onclick="prevMemory(event)">◀</button>
+      <button class="gallery-nav-btn next-btn" onclick="nextMemory(event)">▶</button>
+      
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer-section">
+    <div class="container footer-container">
+      <div class="footer-sticker-wrapper">
+        <!-- Footer Tom mapped to unique waving pose tom_lizard_footer.png -->
+        <img src="assets/images/tom_lizard_footer.png" class="footer-tom" alt="Tom Lizard Waving">
+        <div class="footer-speech-bubble">
+          "Here's to the next 5 years, Uyen! 💛"
+        </div>
+      </div>
+      <h2 class="footer-title">Happy 5-Year Anniversary, Uyen! 🎉</h2>
+      <p class="footer-text">
+        Every single day with you is a gift. Thank you for filling my life with smiles, warmth, and the sweetest memories. I can't wait to write the rest of our beautiful stories together.
+      </p>
+      <p class="footer-sig">Forever Yours 💛</p>
+      <div class="scroll-top-btn" onclick="scrollToTop()">
+        <span>🦎 Jump to Top!</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Import heic2any for dynamic browser-side HEIC image conversion -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+
+  <!-- Import configuration and App JavaScript code -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  
+  <!-- Youtube Iframe API for BGM -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+</body>
+</html>
